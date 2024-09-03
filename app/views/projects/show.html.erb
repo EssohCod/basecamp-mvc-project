@@ -1,0 +1,99 @@
+<%= stylesheet_link_tag("projects") %>
+
+<p class="card-text">
+  <%= @project.user.email %> (
+  <%= raw(@project.user.admin? ? '<i class="fas fa-crown"></i> Admin' : '<i class="fas fa-user"></i> User') %>
+  )
+</p>
+
+  <h1 class="form-group text-center">Project!!</h1>
+
+  <div class="d-flex justify-content-center align-items-center mb-3">
+    <%= link_to edit_project_path(@project), class: "text-dark mr-2" do %>
+      <%= content_tag(:i, '', class: 'fas fa-pencil-alt') %>
+    <% end %>
+    <p class="card-text">Created by: <%= @project.user.email %></p>
+  </div>
+
+<div class = "projects_design_page">
+  <div class="projects_page_left_hand">
+    <div class="mr-4">
+      <h5>Members:</h5>
+      <div class="d-flex mb-3">
+        <%= link_to edit_project_path(@project), class: "text-dark mr-2" do %>
+          <%= content_tag(:i, '', class: 'fas fa-pencil-alt') %>
+        <% end %>
+        <p class="card-text"><%= @project.user.email %></p>
+      </div>
+      <%= render @project %>
+    </div>
+
+    <!-- Discussion Section -->
+    <%= turbo_frame_tag "discussion_section" do %>
+    <h2 class="mb-4 discussion_header">Discussions</h2>
+    <div id="discussion-section">
+      <button id="new-discussion-btn" class="btn btn-primary mb-3">New Discussion</button>
+      
+      <%= form_with(model: [ @project, Discussion.new ], local: false, id: "discussion-form", class: "mb-4", remote: true) do |form| %>
+        <div class="form-group">
+          <%= form.label :content, "Your Message" %>
+          <%= form.text_area :content, class: "form-control", rows: 3 %>
+        </div>
+        <%= form.submit 'Send', class: "btn btn-success" %>
+      <% end %>
+
+      <ul class="list-group">
+        <% @project.discussions.each do |discussion| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong><%= discussion.user.email %>:</strong> <%= discussion.content %>
+            </div>
+            <div>
+              <%= link_to 'Delete', project_discussion_path(@project, discussion), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <h2 class="mb-4 discussion_header">Attachments</h2>
+    <%= form_with(model: [ @project, Attachment.new ], local: true, class: "mb-4") do |form| %>
+      <div class="form-group">
+
+        <%= form.file_field :file, class: "form-control-file" %>
+      </div>
+      <%= form.submit 'Upload File', class: "btn btn-primary" %>
+    <% end %>
+
+    <ul class="list-group mb-5">
+      <% @project.attachments.each do |attachment| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= link_to attachment.file.filename, url_for(attachment.file), class: "mr-3" %>
+          <%= link_to 'Delete', project_attachment_path(@project, attachment), data: { turbo_method: :delete }, class: "btn btn-sm btn-danger" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="projects_page_right_hand">
+      <%= link_to "#{content_tag(:i, '', class: 'fas fa-cog settings-icon')} Edit Project".html_safe, edit_project_path(@project), class: "btn btn-info" %>
+      <%= link_to "#{content_tag(:i, '', class: 'fas fa-users')} Members".html_safe, edit_project_path(@project), class: "btn btn-secondary mb-2" %>
+      <%= link_to "#{content_tag(:i, '', class: 'fas fa-tags')} Topics".html_safe, edit_project_path(@project), class: "btn btn-secondary mb-2" %>
+      <%= link_to "#{content_tag(:i, '', class: 'fas fa-tasks')} Tasks".html_safe, edit_project_path(@project), class: "btn btn-secondary mb-2" %>
+      <%= link_to "#{content_tag(:i, '', class: 'fas fa-paperclip')} Attachments".html_safe, edit_project_path(@project), class: "btn btn-secondary mb-2" %>
+    </div>
+</div>
+
+
+
+<script>
+document.getElementById('new-discussion-btn').addEventListener('click', function() {
+    var form = document.getElementById('discussion-form');
+    if (form.style.display === 'none') {
+      form.style.display = 'block';
+    } else {
+      form.style.display = 'none';
+    }
+  });
+</script>

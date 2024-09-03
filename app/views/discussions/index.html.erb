@@ -1,0 +1,9 @@
+<h2>Discussions for <%= @project.name %></h2>
+
+<ul class="list-group">
+  <% @discussions.each do |discussion| %>
+    <li class="list-group-item">
+      <strong><%= discussion.user.email %>:</strong> <%= discussion.content %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,12 @@
+<div class="container-fluid vh-100 d-flex justify-content-center align-items-center">
+  <div class="text-center">
+    <%= image_tag 'logo.png', alt: 'Your Image', class: 'img-fluid mb-4', style: 'max-width: 300px; max-height: 200px;' %>
+    <h1 class="display-1 font-weight-bold">COLLABORATE</h1>
+    <h2 class="h3 mt-3">A project management tool for developers</h2>
+    <div class="mt-4 d-flex justify-content-center">
+      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-info mr-2" %>
+      <%= link_to "Login", new_user_session_path, class: "btn btn-info" %>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,6 @@
+// Append the new discussion to the list of discussions
+<%= turbo_stream.append "discussion_section", partial: "discussions/discussion", locals: { discussion: @discussion } %>
+
+// Clear the form and hide it
+$("#discussion-form")[0].reset();
+$("#discussion-form").hide();

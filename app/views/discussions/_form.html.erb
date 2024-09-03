@@ -1,0 +1,10 @@
+<%= form_with(model: [@project, @discussion], local: true) do |form| %>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  
+    <%= form.submit %>
+<% end %>
+  

@@ -1,0 +1,32 @@
+.btn-danger i {
+    margin-right: 5px;
+}
+.card-text{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.projects_design_page{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px;
+}
+.projects_page_left_hand{
+    margin-left: 50px;
+}
+.discussion_header{
+    margin-top: 50px;
+    font-size: 19px;
+    font-weight: 600;
+}
+.projects_page_right_hand{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 150px;
+    margin-left: 100px;
+}
+.btn-info{
+    margin-bottom: 10px;
+}
